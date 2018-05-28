@@ -1,0 +1,42 @@
+---
+title: "Template for tutorial accessing Google Spreadsheets"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(googlesheets)
+library(dplyr)
+library(ggformula)
+library(mosaicCore)
+library(mosaic)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r read_data, message = FALSE}
+# This chunk gives the connection to Google Sheets
+# Replace the quoted string in the next line with your document key.
+Globe <- gs_read(gs_key("1ucevNh7wKLtOukyEpacUKi5_-KZUQGtIOONhWRnnnQ4"))
+# Of course, you don't have to use <Globe> as a name for the data frame.
+# Use whatever you like.
+```
+
+## Introduction
+
+A tutorial is an Rmd document, so you can put any content that's useful to you. Here, the only content is a *command block*, which shows how to use the connection to Google Sheets established in the chunk named `read_data` (which you can see only when editing the Rmd source of this file).
+
+Here is a command block that uses the data from the Google Sheet connected to in the `read_data` chunk. These are the critical features of the block ...
+
+1. The block uses the same object name (`Globe` in this example) as created in the `read_data` chunk. It doesn't matter so much what that name is, so long as it is the same as that established in the `read_data` chunk.
+2. In the source document, the very first line of the chunk has three essential parameters:
+    - `example1`. The name of the chunk. If you have multiple exercise chunks in a document, each must have a **unique** name.
+    - `exercise=TRUE`. The basic flag to designate a chunk as an exercise command block.
+    - `exercise.setup="read_data"`. This is what connects the chunk to the hidden `read_data` chunk which takes care of reading the spreadsheet and storing it under the name you choose. (In this example, that was `Globe`.)
+
+
+```{r example1, exercise = TRUE, exercise.setup = "read_data", message=FALSE, exercise.cap="A first example."}
+glimpse(Globe)
+```
+
+
